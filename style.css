@@ -2,30 +2,42 @@
   box-sizing: border-box;
 }
 
+/* ---------- BODY FIX (THE REAL SOLUTION) ---------- */
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(135deg, #4facfe, #00f2fe);
-  height: 100vh;
   margin: 0;
+  min-height: 100vh;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center;   /* center horizontally */
+  align-items: flex-start;   /* 🔥 START FROM TOP */
+  padding: 40px 0;
 }
 
+/* ---------- CONTAINER ---------- */
 .container {
   background: #fff;
-  width: 320px;
+  width: 90%;
+  max-width: 350px;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
   text-align: center;
 }
 
+/* ---------- HOME PAGE WIDTH ---------- */
+.home {
+  max-width: 900px;
+}
+
+/* ---------- HEADINGS ---------- */
 h2 {
   margin-bottom: 20px;
   color: #333;
 }
 
+/* ---------- INPUTS ---------- */
 input {
   width: 100%;
   padding: 10px;
@@ -39,6 +51,7 @@ input:focus {
   border-color: #4facfe;
 }
 
+/* ---------- BUTTONS ---------- */
 button {
   width: 100%;
   padding: 10px;
@@ -55,26 +68,6 @@ button:hover {
   background: #00c6ff;
 }
 
-.link {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.link a {
-  color: #4facfe;
-  text-decoration: none;
-}
-
-.link a:hover {
-  text-decoration: underline;
-}
-
-.home img {
-  margin: 15px 0;
-  border-radius: 12px;
-  cursor: pointer;
-}
-
 .logout {
   background: #ff4b5c;
 }
@@ -83,19 +76,54 @@ button:hover {
   background: #e63e4d;
 }
 
-
-.details img {
+/* ---------- SLIDER ---------- */
+.slider {
   width: 100%;
+  margin-bottom: 30px;
+}
+
+.slider img {
+  width: 100%;
+  max-height: 350px;
+  height: auto;              /* 🔥 VERY IMPORTANT */
+  object-fit: contain;       /* 🔥 NO CROPPING */
+  display: block;
+  margin: auto;
   border-radius: 12px;
-  margin-bottom: 15px;
 }
 
-.details p {
+/* ---------- CARDS ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: contain;
+}
+
+.card p {
+  font-size: 13px;
   margin: 5px 0;
-  color: #555;
-  font-size: 14px;
+  color: #333;
 }
 
-.details .back-btn {
-  margin-top: 20px;
+.card .price {
+  font-weight: bold;
+  color: #4facfe;
 }

@@ -7,9 +7,16 @@
 <body>
 
 <div class="container home">
+
   <h2>Products</h2>
 
-  <img id="slide" width="220" height="220" onclick="goToDetails()">
+  <!-- SLIDER -->
+  <div class="slider">
+    <img id="slide" onclick="openSliderDetails()">
+  </div>
+
+  <!-- CARDS -->
+  <div class="cards" id="cards"></div>
 
   <button class="logout" onclick="logout()">Logout</button>
 </div>
@@ -23,7 +30,8 @@ function logout() {
 }
 
 var products = [];
-var index = 0;
+var currentIndex = 0;
+var sliderInterval;
 
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "https://fakestoreapi.com/products");
@@ -32,22 +40,52 @@ xhr.send();
 xhr.onreadystatechange = function () {
   if (xhr.readyState === 4 && xhr.status === 200) {
     products = JSON.parse(xhr.responseText);
-    startSlideshow();
+    startSlider();
+    renderCards();
   }
 };
 
-function startSlideshow() {
-  document.getElementById("slide").src = products[index].image;
+/* ---------- SLIDER ---------- */
+function startSlider() {
+  var slideImg = document.getElementById("slide");
+  slideImg.src = products[currentIndex].image;
 
-  setInterval(function () {
-    index = (index + 1) % products.length;
-    document.getElementById("slide").src = products[index].image;
-  }, 2000);
+  sliderInterval = setInterval(function () {
+    currentIndex = (currentIndex + 1) % products.length;
+    slideImg.src = products[currentIndex].image;
+  }, 3000);
 }
 
-function goToDetails() {
-  localStorage.setItem("product", JSON.stringify(products[index]));
-  window.location.href = "details.html";
+function openSliderDetails() {
+  localStorage.setItem(
+    "product",
+    JSON.stringify(products[currentIndex])
+  );
+  window.location.href = "./details.html";
+}
+
+/* ---------- CARDS ---------- */
+function renderCards() {
+  var cardsDiv = document.getElementById("cards");
+  cardsDiv.innerHTML = "";
+
+  for (let i = 0; i < products.length; i++) {
+    cardsDiv.innerHTML += `
+      <div class="card" onclick="openCardDetails(${i})">
+        <img src="${products[i].image}">
+        <p>${products[i].title.substring(0, 30)}...</p>
+        <p class="price">$${products[i].price}</p>
+      </div>
+    `;
+  }
+}
+
+function openCardDetails(i) {
+  localStorage.setItem(
+    "product",
+    JSON.stringify(products[i])
+  );
+  window.location.href = "./details.html";
 }
 </script>
 
