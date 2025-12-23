@@ -23,35 +23,22 @@
 
 <script src="cookies.js"></script>
 <script>
-function logout() {
-  deleteCookie("username");
-  deleteCookie("password");
-  window.location.href = "./index.html";
-}
+let products = [];
+let index = 0;
 
-var products = [];
-var index = 0;
-
-/* ---------- FETCH PRODUCTS ---------- */
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "https://fakestoreapi.com/products");
-xhr.send();
-
-xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    products = JSON.parse(xhr.responseText);
+fetch("https://fakestoreapi.com/products")
+  .then(res => res.json())
+  .then(data => {
+    products = data;
     startSlider();
     renderCards();
-  }
-};
+  });
 
-/* ---------- SLIDER ---------- */
 function startSlider() {
-  document.getElementById("slide").src = products[index].image;
-
-  setInterval(function () {
+  slide.src = products[index].image;
+  setInterval(() => {
     index = (index + 1) % products.length;
-    document.getElementById("slide").src = products[index].image;
+    slide.src = products[index].image;
   }, 2500);
 }
 
@@ -60,25 +47,28 @@ function openSliderProduct() {
   window.location.href = "./details.html";
 }
 
-/* ---------- CARDS ---------- */
 function renderCards() {
-  var cardsDiv = document.getElementById("cards");
-  cardsDiv.innerHTML = "";
-
-  for (let i = 0; i < products.length; i++) {
-    cardsDiv.innerHTML += `
+  cards.innerHTML = "";
+  products.forEach((p, i) => {
+    cards.innerHTML += `
       <div class="card" onclick="openDetails(${i})">
-        <img src="${products[i].image}">
-        <p>${products[i].title.substring(0, 35)}...</p>
-        <p class="price">$${products[i].price}</p>
+        <img src="${p.image}">
+        <p>${p.title.substring(0, 35)}...</p>
+        <p class="price">$${p.price}</p>
       </div>
     `;
-  }
+  });
 }
 
 function openDetails(i) {
   localStorage.setItem("product", JSON.stringify(products[i]));
   window.location.href = "./details.html";
+}
+
+function logout() {
+  deleteCookie("username");
+  deleteCookie("password");
+  window.location.href = "./index.html";
 }
 </script>
 

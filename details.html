@@ -1,44 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Product Details</title>
+  <title>Details</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="center-page">
 
-<div class="container details">
+<div class="container">
   <h2 id="title"></h2>
-
-  <img id="photo">
-
-  <p id="category"></p>
+  <img id="photo" style="width:100%;height:auto;">
   <p id="price"></p>
-  <p id="rating"></p>
-  <p id="description"></p>
-
+  <p id="desc"></p>
   <button onclick="goBack()">Back</button>
 </div>
 
 <script>
-var product = JSON.parse(localStorage.getItem("product"));
+const product = JSON.parse(localStorage.getItem("product"));
 
-document.getElementById("photo").src = product.image;
-document.getElementById("title").innerText = product.title;
-document.getElementById("category").innerText =
-  "📦 Category: " + product.category;
-
-document.getElementById("price").innerText =
-  "💰 Price: $" + product.price;
-
-document.getElementById("rating").innerText =
-  "⭐ Rating: " + product.rating.rate +
-  " (" + product.rating.count + " reviews)";
-
-document.getElementById("description").innerText =
-  product.description;
+title.innerText = product.title;
+photo.src = product.image;
+price.innerText = "$" + product.price;
+desc.innerText = product.description;
 
 function goBack() {
-  window.location.href = "home.html";
+  window.location.href = "./home.html";
 }
 </script>
 
