@@ -4,6 +4,7 @@
   <title>Details</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="center-page">
 
 <div class="container">
@@ -17,13 +18,13 @@
 <script>
 const product = JSON.parse(localStorage.getItem("product"));
 
-title.innerText = product.title;
-photo.src = product.image;
-price.innerText = "$" + product.price;
-desc.innerText = product.description;
+document.getElementById("title").innerText = product.title;
+document.getElementById("photo").src = product.image;
+document.getElementById("price").innerText = "$" + product.price;
+document.getElementById("desc").innerText = product.description;
 
 function goBack() {
-  window.location.href = "./home.html";
+  window.location.href = "home.html";
 }
 </script>
 
