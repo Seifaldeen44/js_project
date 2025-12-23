@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container home">
+  <h2>Products</h2>
+
+  <img id="slide" width="220" height="220" onclick="goToDetails()">
+
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<script src="cookies.js"></script>
+<script>
+function logout() {
+  deleteCookie("username");
+  deleteCookie("password");
+  window.location.href = "login.html";
+}
+
+var products = [];
+var index = 0;
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "https://fakestoreapi.com/products");
+xhr.send();
+
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    products = JSON.parse(xhr.responseText);
+    startSlideshow();
+  }
+};
+
+function startSlideshow() {
+  document.getElementById("slide").src = products[index].image;
+
+  setInterval(function () {
+    index = (index + 1) % products.length;
+    document.getElementById("slide").src = products[index].image;
+  }, 2000);
+}
+
+function goToDetails() {
+  localStorage.setItem("product", JSON.stringify(products[index]));
+  window.location.href = "details.html";
+}
+</script>
+
+</body>
+</html>

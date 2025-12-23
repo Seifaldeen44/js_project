@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container details">
+  <h2 id="title"></h2>
+
+  <img id="photo">
+
+  <p id="category"></p>
+  <p id="price"></p>
+  <p id="rating"></p>
+  <p id="description"></p>
+
+  <button onclick="goBack()">Back</button>
+</div>
+
+<script>
+var product = JSON.parse(localStorage.getItem("product"));
+
+document.getElementById("photo").src = product.image;
+document.getElementById("title").innerText = product.title;
+document.getElementById("category").innerText =
+  "📦 Category: " + product.category;
+
+document.getElementById("price").innerText =
+  "💰 Price: $" + product.price;
+
+document.getElementById("rating").innerText =
+  "⭐ Rating: " + product.rating.rate +
+  " (" + product.rating.count + " reviews)";
+
+document.getElementById("description").innerText = "⭐ Description : \n\n" + 
+  product.description;
+
+function goBack() {
+  window.location.href = "home.html";
+}
+</script>
+
+</body>
+</html>

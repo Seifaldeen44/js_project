@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h2>Login</h2>
+
+  <input type="text" id="username" placeholder="Username">
+  <input type="password" id="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <div class="link">
+    Don’t have an account?
+    <a href="signup.html">Sign Up</a>
+  </div>
+</div>
+
+<script src="cookies.js"></script>
+<script>
+function login() {
+  const inputUser = document.getElementById("username").value;
+  const inputPass = document.getElementById("password").value;
+
+  const savedUser = getCookie("username");
+  const savedPass = getCookie("password");
+
+  if (savedUser === "" || savedPass === "") {
+    window.location.href = "signup.html";
+    return;
+  }
+
+  if (inputUser === savedUser && inputPass === savedPass) {
+    window.location.href = "home.html";
+  } else {
+    alert("Wrong username or password");
+  }
+}
+</script>
+
+</body>
+</html>
